@@ -1,8 +1,8 @@
 const React = require("react");
-const { fade, makeStyles } = require("@material-ui/core");
+const { useState } = require("react");
+const { makeStyles } = require("@material-ui/core");
 const { InputBase } = require("@material-ui/core");
 const { Search } = require("@material-ui/icons");
-// import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -11,10 +11,6 @@ const useStyles = makeStyles(theme => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    // "&:hover": {
-    //   backgroundColor: fade(theme.palette.common.white, 0.25)
-    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -30,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justify: "flex-start"
   },
   inputRoot: {
     color: "inherit"
@@ -39,14 +35,19 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1, 1, 1, 7),
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: 200
+    [theme.breakpoints.up("lg")]: {
+      width: 500
     }
   }
 }));
 
-module.exports.SearchQnaButton = () => {
+module.exports = ({ value, onChange }) => {
   const classes = useStyles();
+  const [searchText, setSearchText] = useState("");
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  // };
+
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
@@ -59,7 +60,21 @@ module.exports.SearchQnaButton = () => {
           input: classes.inputInput
         }}
         inputProps={{ "aria-label": "search" }}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
 };
+
+// primitive form of this component:
+/*
+   <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={searchText}
+        onChange={event => setSearchText(event.target.value)}
+      />
+    </form>
+
+    */

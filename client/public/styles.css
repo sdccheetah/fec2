@@ -1,8 +1,20 @@
-.bar-and-marker {
-  height: 16px;
+.bar-and-marker,
+.progress-bar-custom {
   overflow: hidden;
-  width: 200px;
+  width: 100%;
   position: relative;
+}
+
+.bar-and-marker {
+  position: relative;
+  height: 16px;
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+.progress-bar-custom {
+  height: 8px;
+  top: 26.2%;
 }
 
 .vert-sep {
@@ -22,32 +34,60 @@
   left: 205px;
 }
 
-.bar-and-marker {
-  position: relative;
-}
-
-.bar-and-marker .bar {
-  height: 50%;
+.bar-and-marker .bar,
+.progress-bar-custom .bar {
   background: #ebebeb;
   position: absolute;
   width: 100%;
 }
 
+.bar-and-marker .bar {
+  height: 50%;
+}
+.progress-bar-custom .bar {
+  height: 100%;
+}
+
 .bar-and-marker .marker {
   position: absolute;
-  font-size: 90%;
-  top: -2px;
+  font-size: 30px;
+  top: -23px;
 }
 
 .stars {
-  height: 22px;
   overflow: hidden;
-  width: 58px;
   position: relative;
+}
+
+.stars {
+  /* default size*/
+  height: 22px;
+  width: 58px;
   font-size: 13px;
 }
+
 .full-stars,
-.empty-stars {
+.empty-stars,
+.bar-full {
   position: absolute;
   overflow: hidden;
+}
+
+.progress-bar-custom .bar-full {
+  background: green;
+  z-index: 2;
+}
+
+.quality-radio span {
+  font-weight: lighter;
+  font-size: 10px;
+  width: 67px;
+  text-align: center;
+}
+
+.star-select {
+  cursor: pointer;
+  height: 44px;
+  width: 115px;
+  font-size: 26px;
 }

@@ -1,36 +1,108 @@
 const React = require("react");
 const Carousel = require("react-bootstrap/Carousel");
+const { GlassMagnifier } = require("react-image-magnifiers");
 
-const ImageGallery = props => {
+const ImageGallery = ({
+  initialProduct,
+  styles,
+  pictureIndex,
+  handleSelect,
+  handleExpand,
+  expandedView
+}) => {
   const cropImage = {
-    width: "775px",
-    height: "550px",
-    objectFit: "cover"
+    width: "100%",
+    height: "600px",
+    objectFit: "cover",
+    cursor: "zoom-in"
   };
+
+  const magnifyCrop = {
+    height: "50%",
+    width: "100%",
+    justifyContent: "center",
+    display: "flex",
+    alignItems: "center"
+  };
+
+  const handleClick = () => {
+    handleExpand();
+  };
+
   return (
-    <div style={{ overflow: "hidden", marginTop: "20px", width: "775px" }}>
-      <Carousel wrap={true}>
-        <Carousel.Item>
-          <img
-            style={cropImage}
-            src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-            alt="First slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={cropImage}
-            src="https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80"
-            alt="Third slide"
-          />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={cropImage}
-            src="https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80"
-            alt="Third slide"
-          />
-        </Carousel.Item>
+    <div>
+      <Carousel
+        wrap={true}
+        activeIndex={pictureIndex}
+        onSelect={handleSelect}
+        style={{ marginTop: "20px" }}
+      >
+        {initialProduct.productStyles[0] && !styles.photos
+          ? initialProduct.productStyles[0].photos.map((photo, i) => {
+              let photoUrl, smallerPhoto, largerPhoto;
+              if (photo.url) {
+                photoUrl = photo.url.split("w=");
+                smallerPhoto = photoUrl[0] + "w=1000&q=80";
+                largerPhoto = photoUrl[0] + "w=2000&q=80";
+              } else {
+                smallerPhoto = "";
+                largerPhoto = "https://via.placeholder.com/800";
+              }
+              return (
+                <Carousel.Item key={i}>
+                  {!expandedView ? (
+                    <img
+                      style={cropImage}
+                      src={largerPhoto}
+                      onClick={handleClick}
+                      className="expandImage"
+                      alt="carousel image"
+                    />
+                  ) : (
+                    <GlassMagnifier
+                      imageSrc={smallerPhoto}
+                      largeImageSrc={largerPhoto}
+                      style={magnifyCrop}
+                      imageAlt="magnified image"
+                    />
+                  )}
+                </Carousel.Item>
+              );
+            })
+          : null}
+
+        {styles.photos
+          ? styles.photos.map((photo, i) => {
+              let photoUrl, smallerPhoto, largerPhoto;
+              if (photo.url) {
+                photoUrl = photo.url.split("w=");
+                smallerPhoto = photoUrl[0] + "w=1000&q=80";
+                largerPhoto = photoUrl[0] + "w=2000&q=80";
+              } else {
+                smallerPhoto = "";
+                largerPhoto = "https://via.placeholder.com/800";
+              }
+              return (
+                <Carousel.Item key={i}>
+                  {!expandedView ? (
+                    <img
+                      style={cropImage}
+                      src={largerPhoto}
+                      onClick={handleClick}
+                      alt="carousel image"
+                    />
+                  ) : (
+                    <GlassMagnifier
+                      imageSrc={smallerPhoto}
+                      largeImageSrc={largerPhoto}
+                      style={magnifyCrop}
+                      imageAlt="magnified image"
+                    />
+                  )}
+                </Carousel.Item>
+              );
+            })
+          : null}
       </Carousel>
     </div>
   );

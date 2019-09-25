@@ -1,7 +1,9 @@
 const React = require("react");
+
 const { makeStyles } = require("@material-ui/core");
 const {
   Button,
+  Link,
   Modal,
   Backdrop,
   Fade,
@@ -10,15 +12,15 @@ const {
 } = require("@material-ui/core");
 
 const useStyles = makeStyles(theme => ({
-  button: {},
-  input: {},
   modal: {
     display: "flex",
+
     alignItems: "center",
     justifyContent: "center"
   },
-
-  paper: {
+  paperModalBody: {
+    height: "100%",
+    overflow: "scroll",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -26,46 +28,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-module.exports.AddQuestion = () => {
+module.exports = ({ thumbnail, isOpen, closeModal }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div>
-      <Button
-        variant="outlined"
-        className={classes.button}
-        onClick={handleOpen}
-      >
-        ADD A QUESTION+
-      </Button>
-
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={closeModal}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500
         }}
       >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <Typography id="transition-modal-title">ADD A QUESTION </Typography>
-            <form noValidate autoComplete="off">
-              <TextField />
-            </form>
+        <Fade in={isOpen}>
+          <div className={classes.paperModalBody}>
+            <img src={thumbnail} />
           </div>
         </Fade>
       </Modal>
