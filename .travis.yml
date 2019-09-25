@@ -1,0 +1,31 @@
+language: node_js
+node_js:
+  - "node"
+
+git:
+  depth: 2
+  quiet: true
+
+#Github branches to test:
+
+# blocklist
+# branches:
+#   except:
+#   - legacy
+
+# safelist
+branches:
+  only:
+    - master
+    - travis_test
+
+script:
+  - npm install
+  - npm test
+
+notifications:
+  email:
+    recipients:
+      - fecpanther@gmail.com
+    on_success: always
+    on_failure: always
