@@ -1,11 +1,12 @@
 const React = require("react");
 const { Card } = require("@material-ui/core");
+const { CardActionArea } = require("@material-ui/core");
 const { CardContent } = require("@material-ui/core");
 const { Typography } = require("@material-ui/core");
 const { makeStyles } = require("@material-ui/core/styles");
 const { Icon } = require("@material-ui/core");
 
-const useStyles = makeStyles({
+useStyles = makeStyles({
   card: {
     width: 200,
     height: 300,
@@ -23,25 +24,20 @@ const useStyles = makeStyles({
   },
   media: {
     height: "200px"
-  },
-  icon: {
-    textAlign: "center"
   }
 });
 
 module.exports = function AddToOutfitCard(props) {
   const classes = useStyles();
   return (
-    <div style={{ padding: "4px" }}>
+    <div>
       <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.addToOutfit}>Add To Outfit</Typography>
           <Icon
             className={classes.icon}
             color="action"
-            onClick={() => {
-              props.addToOutfit(props.product);
-            }}
+            onClick={() => console.log("add to outfit")}
           >
             add_circle
           </Icon>

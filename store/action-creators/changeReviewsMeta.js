@@ -1,6 +1,5 @@
 const axios = require("../../helpers/axiosApi.js");
 const calcAverageRatings = require("../../helpers/calcAverageRatings.js");
-const calcRatingRelFreq = require("./helpers/calcRatingRelFreq.js");
 
 module.exports = id => {
   return dispatch => {
@@ -9,7 +8,6 @@ module.exports = id => {
       .then(({ data }) => {
         let reviewsMeta = data;
         reviewsMeta.avgRating = calcAverageRatings(data.ratings);
-        reviewsMeta.ratingRelFreq = calcRatingRelFreq(data.ratings);
         dispatch({
           type: "CHANGE_REVIEWS_META",
           payload: { reviewsMeta }
